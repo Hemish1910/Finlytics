@@ -56,5 +56,9 @@ htmlcov/
 # Data files
 data/
 *.csv
-*.json
 *.parquet
+
+# Allow important config files
+!vercel.json
+!package.json
+!tsconfig.json
