@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finlytics - Real-Time Trading Agent System</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>📈 Finlytics</h1>
+                <p>Real-Time Multi-Agent Trading System</p>
+            </div>
+            <div class="status-indicator">
+                <span class="status-dot" id="systemStatus"></span>
+                <span id="statusText">Initializing...</span>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="dashboard">
+            <!-- Portfolio Overview -->
+            <section class="card portfolio-overview">
+                <h2>Portfolio Overview</h2>
+                <div class="portfolio-grid">
+                    <div class="stat-box">
+                        <span class="stat-label">Total Value</span>
+                        <span class="stat-value" id="totalValue">$100,000.00</span>
+                        <span class="stat-change positive" id="totalChange">+0.00%</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Cash Available</span>
+                        <span class="stat-value" id="cashAvailable">$100,000.00</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Total P&L</span>
+                        <span class="stat-value" id="totalPnL">$0.00</span>
+                        <span class="stat-change" id="pnlChange">0.00%</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Active Positions</span>
+                        <span class="stat-value" id="activePositions">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trading Statistics -->
+            <section class="card trading-stats">
+                <h2>Trading Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-icon">📊</span>
+                        <div>
+                            <p class="stat-number" id="totalTrades">0</p>
+                            <p class="stat-desc">Total Trades</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">✅</span>
+                        <div>
+                            <p class="stat-number" id="winRate">0%</p>
+                            <p class="stat-desc">Win Rate</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🎯</span>
+                        <div>
+                            <p class="stat-number" id="activeSignals">0</p>
+                            <p class="stat-desc">Active Signals</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">💰</span>
+                        <div>
+                            <p class="stat-number" id="avgTradeSize">$0</p>
+                            <p class="stat-desc">Avg Trade Size</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Agent Status -->
+            <section class="card agent-status">
+                <h2>Agent Status</h2>
+                <div class="agents-grid" id="agentsGrid">
+                    <!-- Agents will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Recent Trades -->
+            <section class="card recent-trades">
+                <h2>Recent Trades</h2>
+                <div class="table-container">
+                    <table id="tradesTable">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Symbol</th>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>P&L</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tradesBody">
+                            <tr>
+                                <td colspan="7" class="no-data">No trades yet. System is in demo mode.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Active Signals -->
+            <section class="card active-signals">
+                <h2>Active Trading Signals</h2>
+                <div class="signals-container" id="signalsContainer">
+                    <p class="no-data">No active signals. Monitoring markets...</p>
+                </div>
+            </section>
+
+            <!-- System Controls -->
+            <section class="card system-controls">
+                <h2>System Controls</h2>
+                <div class="controls-grid">
+                    <button class="btn btn-primary" onclick="refreshData()">
+                        🔄 Refresh Data
+                    </button>
+                    <button class="btn btn-secondary" onclick="viewLogs()">
+                        📋 View Logs
+                    </button>
+                    <button class="btn btn-secondary" onclick="downloadReport()">
+                        📥 Download Report
+                    </button>
+                    <button class="btn btn-info" onclick="showDocumentation()">
+                        📚 Documentation
+                    </button>
+                </div>
+            </section>
+
+            <!-- Market Data -->
+            <section class="card market-data">
+                <h2>Market Data Stream</h2>
+                <div class="market-grid" id="marketGrid">
+                    <!-- Market data will be populated by JavaScript -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Finlytics Trading System v1.0 | Multi-Agent Architecture | Real-Time Trading</p>
+            <p>⚠️ Demo Mode - Paper Trading Only | <a href="https://github.com/Hemish1910/Finlytics" target="_blank">GitHub Repository</a></p>
+        </footer>
+    </div>
+
+    <!-- Modal for Documentation -->
+    <div id="docModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>📚 Finlytics Documentation</h2>
+            <div class="doc-content">
+                <h3>System Overview</h3>
+                <p>Finlytics is a complete real-time multi-agent trading system with 6 specialized agents:</p>
+                <ul>
+                    <li><strong>Market Data Agent:</strong> Real-time data collection and streaming</li>
+                    <li><strong>Analysis Agent:</strong> Technical analysis with 10+ indicators</li>
+                    <li><strong>Signal Agent:</strong> Trading signal generation with confidence scoring</li>
+                    <li><strong>Risk Agent:</strong> Position sizing and risk management</li>
+                    <li><strong>Execution Agent:</strong> Order placement and management</li>
+                    <li><strong>Portfolio Agent:</strong> Portfolio tracking and P&L calculation</li>
+                </ul>
+                
+                <h3>Features</h3>
+                <ul>
+                    <li>Real-time market data streaming</li>
+                    <li>Event-driven architecture</li>
+                    <li>Multiple trading strategies (Momentum, Mean Reversion, Trend Following)</li>
+                    <li>Comprehensive risk management</li>
+                    <li>Database persistence (SQLite)</li>
+                    <li>Paper trading mode (default)</li>
+                </ul>
+
+                <h3>Running the Backend</h3>
+                <p>To run the full system with Python backend:</p>
+                <pre><code>git clone https://github.com/Hemish1910/Finlytics.git
+cd Finlytics
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python src/main.py</code></pre>
+
+                <h3>Safety Features</h3>
+                <ul>
+                    <li>Paper trading mode enabled by default</li>
+                    <li>Risk limits enforced</li>
+                    <li>Position size controls</li>
+                    <li>Stop-loss protection</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
