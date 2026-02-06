@@ -58,25 +58,28 @@ async def startup_event():
             # Initialize database
             init_db()
             
-            # Create orchestrator
+            # Create orchestrator (but don't start background tasks in serverless)
             config = Config()
             orchestrator = TradingOrchestrator(config)
             
-            # Start the trading system in background
-            asyncio.create_task(run_trading_system())
+            print("Trading system initialized (serverless mode)")
         except Exception as e:
             print(f"Startup error: {e}")
             # Continue with demo mode
     else:
         print("Running in demo mode - imports not available")
 
-async def run_trading_system():
-    """Run the trading system in background"""
+def get_or_create_orchestrator():
+    """Get or create orchestrator instance for serverless"""
     global orchestrator
-    try:
-        await orchestrator.start()
-    except Exception as e:
-        print(f"Error running trading system: {e}")
+    if orchestrator is None and IMPORTS_AVAILABLE:
+        try:
+            init_db()
+            config = Config()
+            orchestrator = TradingOrchestrator(config)
+        except Exception as e:
+            print(f"Error creating orchestrator: {e}")
+    return orchestrator
 
 @app.get("/", response_class=HTMLResponse)
 async def get_dashboard():
