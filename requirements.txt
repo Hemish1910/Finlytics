@@ -1,6 +1,6 @@
-# Core Dependencies
+# Core Dependencies - Vercel Optimized
 fastapi==0.109.0
-uvicorn==0.27.0
+uvicorn[standard]==0.27.0
 python-dotenv==1.0.0
 pydantic==2.5.3
 pydantic-settings==2.1.0
@@ -13,9 +13,6 @@ pandas==2.1.4
 numpy==1.26.3
 yfinance==0.2.35
 
-# Technical Analysis (lightweight alternatives)
-pandas-ta==0.3.14b0
-
 # Async Support
 aiohttp==3.9.1
 websockets==12.0
@@ -25,8 +22,5 @@ python-dateutil==2.8.2
 pytz==2023.3.post1
 requests==2.31.0
 
-# Logging and Monitoring
+# Logging
 colorlog==6.8.0
-
-# Optional: Sentiment Analysis
-textblob==0.17.1
